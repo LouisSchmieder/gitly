@@ -159,6 +159,7 @@ pub fn (mut app App) create_new_test_repo() {
 		app.warn('git clone https://github.com/vlang/v test_repo')
 		exit(1)
 	}
+	app.create_empty_user('vlang', 'vlang@vlang.io')
 	app.add_user('vlang', '', ['vlang@vlang.io'], true)
 	app.repo = Repo{
 		name: 'v'
