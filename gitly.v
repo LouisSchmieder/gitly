@@ -320,13 +320,12 @@ pub fn (mut app App) update(user, repo string) vweb.Result {
 	if !app.find_repo(user, repo) {
 		return app.vweb.not_found()
 	}
-	secret := if 'X-Hub-Signature' in app.vweb.req.headers { app.vweb.req.headers['X-Hub-Signature'][5..] } else { '' }
-	if secret == '' {
-		return app.vweb.redirect('/')
-	}
-	if secret == app.repo.webhook_secret && app.repo.webhook_secret != '' {
+	signature := if 'X-Hub-Signature' in app.vweb.req.headers { app.vweb.req.headers['X-Hub-Signature'] } else { '' }
+	println(signature)
+	println(app.vweb)
+	/*if secret == app.repo.webhook_secret && app.repo.webhook_secret != '' {
 		go app.update_repo_data(&app.repo)
-	}
+	}*/
 	return app.vweb.redirect('/')
 }
 
