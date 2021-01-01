@@ -703,12 +703,12 @@ pub fn (mut app App) blob(user string, repo string, branch string, path string) 
 	*/
 	plain_text := app.repo.git('--no-pager show $branch:$app.path')
 	// }
-	mut source := vweb.RawHtml(plain_text.str())
+	mut source := vweb.RawText(plain_text.str())
 	// mut source := (plain_text.str())
 	if os.file_size(blob_path) < 1000000 {
 		if !raw {
 			src, _, _ := hl.highlight_text(plain_text, blob_path, false)
-			source = vweb.RawHtml(src)
+			source = vweb.RawText(src)
 		}
 	}
 	// Increase file's number of views
